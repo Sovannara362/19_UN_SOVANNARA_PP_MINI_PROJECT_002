@@ -18,7 +18,7 @@ export default function ColorGroupTagComponent() {
       size="lg"
       
     >
-      <Label>Choose a color</Label>
+      <Label className="text-gray-900">Choose a color</Label>
         <TagGroup.List>
           <Tag className={`text-xl data-[selected=true]:bg-green-400 data-[selected=true]:text-black`}  id="green">green</Tag>
           <Tag className={`text-xl data-[selected=true]:bg-gray-400 data-[selected=true]:text-black`} id="gray">gray</Tag>

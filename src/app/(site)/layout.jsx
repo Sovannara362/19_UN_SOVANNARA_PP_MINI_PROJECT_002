@@ -5,7 +5,7 @@ export default function SiteLayout({ children }) {
   return (
     <>
       <NavbarComponent />
-      <main className="flex-1">{children}</main>
+      <main className="flex-1 bg-[#fafafa]">{children}</main>
       <FooterComponent />
     </>
   );

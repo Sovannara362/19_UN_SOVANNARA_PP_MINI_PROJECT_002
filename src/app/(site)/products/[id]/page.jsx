@@ -27,23 +27,23 @@ export default async function page({ params }) {
           </div>
           <div className="flex flex-col gap-3 p-5">
             <div className="flex gap-4">
-              <h3 className="font-semibold leading-snug text-gray-50">
+              <h3 className="font-semibold leading-snug text-gray-900">
                 {p.productName}
               </h3>
               <StarRow />
             </div>
-            <div className="flex flex-col gap-3 pt-2">
+            <div className="flex flex-col justify-baseline gap-3 pt-2">
               <div className="flex gap-4">
-                <p className="text-xl font-semibold tabular-nums text-gray-50">
+                <p className="text-2xl font-semibold tabular-nums text-gray-900">
                   {`$${p.price}`}
                 </p>
-                <p className="text-xl font-semibold tabular-nums line-through text-gray-50">
+                <p className="text-md font-semibold tabular-nums line-through text-gray-400">
                   {`$${p.price + 14}`}
                 </p>
               </div>
               <ColorGroupTagComponent/>
               <SizeGroupRadioComponent/>
-              <p className="mt-1 min-h-10 line-clamp-2 text-sm leading-5 text-gray-50">
+              <p className="mt-1 min-h-10 line-clamp-2 text-sm leading-5 text-gray-900">
                 {p.description}
               </p>
             </div>

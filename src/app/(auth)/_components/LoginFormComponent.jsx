@@ -3,24 +3,37 @@
 import { useState } from "react";
 import { Button } from "@heroui/react";
 import { useForm } from "react-hook-form";
-
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import { loginAction } from "../../../action/login.action";
 export default function LoginFormComponent() {
   const [submitError, setSubmitError] = useState("");
 
+  const loginSchema = z.object({
+    email: z.email("Please enter the valid email form"),
+    password: z.string().min(8, "Password at least 8 characters"),
+  });
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm({
+    resolver: zodResolver(loginSchema),
     defaultValues: {
       email: "",
       password: "",
     },
   });
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     console.log(data);
-    setSubmitError("Demo only — no login backend is connected yet.");
+    try {
+      const res = await loginAction(data);
+      console.log("this is in onsubmit ;", res);
+      return res;
+    } catch (error) {
+      console.error("Login failed:", error);
+    }
   };
 
   return (
@@ -47,9 +60,16 @@ export default function LoginFormComponent() {
           type="email"
           autoComplete="email"
           {...register("email")}
-          className="mt-1.5 w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm outline-none ring-lime-400/20 focus:border-lime-400 focus:ring-2"
+          className={`mt-1.5 w-full rounded-xl border bg-white px-4 py-3 text-sm outline-none ring-lime-400/20  ${
+            errors.email
+              ? "border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-500"
+              : "border-gray-200 focus:border-lime-400 focus:ring-2 focus:ring-lime-400"
+          }`}
           placeholder="you@example.com"
         />
+        {errors.email && (
+          <p className="mt-1.5 text-xs text-red-600">{errors.email.message}</p>
+        )}
       </div>
 
       <div>
@@ -64,17 +84,25 @@ export default function LoginFormComponent() {
           type="password"
           autoComplete="current-password"
           {...register("password")}
-          className="mt-1.5 w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm outline-none ring-lime-400/20 focus:border-lime-400 focus:ring-2"
+          className={`mt-1.5 w-full rounded-xl border bg-white px-4 py-3 text-sm outline-none ring-lime-400/20  ${
+            errors.password
+              ? "border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-500"
+              : "border-gray-200 focus:border-lime-400 focus:ring-2 focus:ring-lime-400"
+          }`}
           placeholder="••••••••"
         />
+        {errors.password && (
+          <p className="mt-1.5 text-xs text-red-600">{errors.password.message}</p>
+        )}
       </div>
 
       <Button
         type="submit"
+        isDisabled={isSubmitting}
         variant="solid"
         className="w-full rounded-full bg-lime-400 py-3.5 text-sm font-semibold text-gray-900 shadow-sm transition hover:bg-lime-300"
       >
-        Sign in
+        {isSubmitting ? "Sign in..." : "Sign in"}
       </Button>
     </form>
   );

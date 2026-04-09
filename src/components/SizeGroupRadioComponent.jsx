@@ -13,30 +13,30 @@ export function SizeGroupRadioComponent() {
         name="plan-uncontrolled"
         onChange={(nextValue) => setSelection(nextValue)}
       >
-        <Label>Choose a size</Label>
+        <Label className="text-gray-900">Choose a size</Label>
         <div className="flex gap-4">
-          <Radio className={`border py-2 px-5 rounded-3xl`} value="s">
+          <Radio className={` border py-2 px-5 rounded-3xl`} value="s">
             <Radio.Control>
               <Radio.Indicator />
             </Radio.Control>
             <Radio.Content>
-              <Label>S</Label>
+              <Label className="text-gray-900">S</Label>
             </Radio.Content>
           </Radio>
-          <Radio className={`border py-2 px-5 rounded-3xl`} value="m">
+          <Radio className={` border py-2 px-5 rounded-3xl`} value="m">
             <Radio.Control>
               <Radio.Indicator />
             </Radio.Control>
             <Radio.Content>
-              <Label>M</Label>
+              <Label className="text-gray-900">M</Label>
             </Radio.Content>
           </Radio>
-          <Radio className={`border py-2 px-5 rounded-3xl`} value="l">
+          <Radio className={` border py-2 px-5 rounded-3xl`} value="l">
             <Radio.Control>
               <Radio.Indicator />
             </Radio.Control>
             <Radio.Content>
-              <Label>L</Label>
+              <Label className="text-gray-900">L</Label>
             </Radio.Content>
           </Radio>
         </div>

@@ -96,7 +96,7 @@ function ProductIcon({ className, variant }) {
 
 export default function AuthLayout({ children }) {
   return (
-    <main className="flex-1">
+    <main className="flex-1 bg-[#fafafa]">
       <div className="relative mx-auto flex min-h-full max-w-7xl items-center justify-center px-4 py-12 sm:py-16">
         <div className="relative w-full max-w-md">
           {/* Decorative product icons */}
