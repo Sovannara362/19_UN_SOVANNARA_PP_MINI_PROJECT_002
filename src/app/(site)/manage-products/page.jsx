@@ -1,7 +1,10 @@
+import { CreateProductModalComponent } from '../../../components/manage-product/CreateProductModalComponent'
 import React from 'react'
 
 export default function page() {
   return (
-    <div>This the manage products</div>
+    <div>
+      <CreateProductModalComponent/>
+    </div>
   )
 }
