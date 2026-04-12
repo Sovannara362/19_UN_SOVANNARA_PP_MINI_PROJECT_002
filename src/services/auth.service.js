@@ -1,8 +1,10 @@
+import { use } from "react";
+
 export async function loginService(req) {
-  const {email,password} = req;
+  const { email, password } = req;
   const user = {
     email,
-    password
+    password,
   };
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/auths/login`, {
@@ -24,7 +26,7 @@ export async function loginService(req) {
 }
 
 export async function registerService(req) {
-  const fullName = req.fullName.slipt(" ");
+  const fullName = req.fullName.split(" ");
   const user = {
     firstName: fullName[0],
     lastName: fullName[1],
@@ -33,13 +35,16 @@ export async function registerService(req) {
     birthDate: req.birthDate,
   };
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/auths/regitster`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/auths/register`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
       },
-      body: JSON.stringify(user),
-    });
+    );
     const registeredUser = await res.json();
 
     return registeredUser;

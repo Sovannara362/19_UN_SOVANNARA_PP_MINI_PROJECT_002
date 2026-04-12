@@ -1,13 +1,13 @@
-import { productsResponse } from '../../../data/mockData'
 import ShopCardComponent from '../../../components/shop/ShopCardComponent'
 import React from 'react'
+import { getAllProductService } from '../../../services/product.service'
 
-export default function Page() {
-  const products = productsResponse.data
+export default async function Page() {
+  const products = await getAllProductService();
   return (
-    <div className='flex gap-5 flex-wrap p-4'>
+    <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 p-4'>
         {
-          products.map((product)=>(
+          products.payload.map((product)=>(
             <ShopCardComponent key={product.productId} product={product}/>
           ))
         }

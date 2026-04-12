@@ -4,10 +4,13 @@ import Image from "next/image";
 import { StarRow } from "../../../../components/ProductCardComponent";
 import { SizeGroupRadioComponent } from "../../../../components/SizeGroupRadioComponent";
 import ColorGroupTagComponent from "../../../../components/ColorGroupTagComponent";
+import { getAllProductService } from "../../../../services/product.service";
 
 export default async function page({ params }) {
   const { id } = await params;
-  const product = productsResponse.data.filter((p) => p.productId == id);
+  const res =await getAllProductService();
+  const product = res.payload.filter((p) => p.productId == id);
+
   console.log(product);
   return (
     <div>
@@ -28,7 +31,7 @@ export default async function page({ params }) {
           <div className="flex flex-col gap-3 p-5">
             <div className="flex gap-4">
               <h3 className="font-semibold leading-snug text-gray-900">
-                {p.productName}
+                {p.name}
               </h3>
               <StarRow />
             </div>

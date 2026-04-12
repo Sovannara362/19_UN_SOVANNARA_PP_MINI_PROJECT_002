@@ -26,12 +26,16 @@ export default function LoginFormComponent() {
   });
 
   const onSubmit = async (data) => {
-    console.log(data);
+    setSubmitError("");
+
     try {
       const res = await loginAction(data);
-      console.log("this is in onsubmit ;", res);
-      return res;
+
+      if (res?.error) {
+        setSubmitError(res.error);
+      }
     } catch (error) {
+      setSubmitError("Something went wrong");
       console.error("Login failed:", error);
     }
   };
