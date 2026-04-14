@@ -7,7 +7,7 @@ export async function CreateProductModalComponent() {
     <Modal>
       <Button
         variant="secondary"
-        className="w-full rounded-full bg-lime-400 py-3.5 text-sm font-semibold text-gray-900 shadow-sm transition hover:bg-lime-300"
+        className="rounded-full bg-lime-400 py-3.5 text-sm font-semibold text-gray-900 shadow-sm transition hover:bg-lime-300"
       >
         + Create Product
       </Button>
@@ -16,7 +16,7 @@ export async function CreateProductModalComponent() {
           <Modal.Dialog className="sm:max-w-md">
             <Modal.CloseTrigger />
             <Modal.Header>
-              <Modal.Heading>Contact Us</Modal.Heading>
+              <Modal.Heading>Create New Product</Modal.Heading>
               <p className="mt-1.5 text-sm leading-5 text-muted">
                 Fill out the form below and we'll get back to you. The modal
                 adapts automatically when the keyboard appears on mobile.

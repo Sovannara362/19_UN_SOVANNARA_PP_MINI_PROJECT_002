@@ -3,15 +3,13 @@ import { Button } from "@heroui/react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { useState } from "react";
-import { AddNewProductAction } from "../../action/product.action";
-export default function AddNewProductFormComponent({ categories }) {
-  const [submitError, setSubmitError] = useState("");
 
-  const COLORS = ["green", "gray", "red", "blue", "white"];
-  const SIZES = ["s", "m", "l", "xl", "xxl", "xxxl"];
-  const CATEGORIES = categories;
-
+export function UpdateProductFormComponent({
+  product,
+  categories,
+  onSubmit,
+  isSubmitting,
+}) {
   const productSchema = z.object({
     name: z.string().min(1, "Product name is required"),
     price: z.coerce.number().min(0, "Enter a valid price"),
@@ -25,29 +23,21 @@ export default function AddNewProductFormComponent({ categories }) {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors, isSubmitting: formSubmitting },
   } = useForm({
     defaultValues: {
-      name: "",
-      price: "",
-      category: "",
-      imageUrl: "",
-      colors: [],
-      sizes: [],
-      description: "",
+      name: product.name,
+      price: product.price,
+      category: product.categoryId,
+      imageUrl: product.imageUrl,
+      colors: product.colors,
+      sizes: product.sizes,
+      description: product.description,
     },
     resolver: zodResolver(productSchema),
   });
-
-  const onSubmit = async (data) => {
-    setSubmitError("");
-    try {
-      const res = await AddNewProductAction(data);
-      if (res?.error) setSubmitError(res.error);
-    } catch (error) {
-      setSubmitError("Something went wrong");
-    }
-  };
+  const COLORS = ["green", "gray", "red", "blue", "white"];
+  const SIZES = ["s", "m", "l", "xl", "xxl", "xxxl"];
 
   return (
     <form
@@ -55,12 +45,6 @@ export default function AddNewProductFormComponent({ categories }) {
       onSubmit={handleSubmit(onSubmit)}
       noValidate
     >
-      {submitError && (
-        <div className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800">
-          {submitError}
-        </div>
-      )}
-
       {/* Name & Price */}
       <div className="grid grid-cols-2 gap-4">
         <div>
@@ -79,7 +63,7 @@ export default function AddNewProductFormComponent({ categories }) {
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-700">
-            Price (USD)
+            Price 
           </label>
           <input
             type="number"
@@ -108,7 +92,7 @@ export default function AddNewProductFormComponent({ categories }) {
             className={`mt-1.5 w-full rounded-xl border px-4 py-3 text-sm outline-none ${errors.category ? "border-red-500 focus:ring-2 focus:ring-red-500" : "border-gray-200 focus:ring-2 focus:ring-lime-400"}`}
           >
             <option value="">Select category</option>
-            {CATEGORIES.map((c) => (
+            {categories.payload.map((c) => (
               <option value={c.categoryId} key={c.categoryId}>
                 {c.name}
               </option>
@@ -209,13 +193,12 @@ export default function AddNewProductFormComponent({ categories }) {
       </div>
 
       <Button
-        slot="close"
         type="submit"
         isDisabled={isSubmitting}
         variant="solid"
         className="w-full rounded-full bg-lime-400 py-3.5 text-sm font-semibold text-gray-900 shadow-sm transition hover:bg-lime-300"
       >
-        {isSubmitting ? "Creating product..." : "Create Product"}
+        {isSubmitting ? "Saving..." : "Save Changes"}
       </Button>
     </form>
   );

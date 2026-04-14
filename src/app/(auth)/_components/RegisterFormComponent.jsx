@@ -11,7 +11,7 @@ export default function RegisterFormComponent() {
   const [submitError, setSubmitError] = useState("");
 
   const registerSchema = z.object({
-    fullName: z.string().min(1, "Please input the full name"),
+    name: z.string().min(1, "Please input the full name"),
     email: z.email("Please enter a valid email"),
     password: z.string().min(8, "Password at least 8 characters"),
     birthdate: z.iso.date(1, "Please input valid birth date"),
@@ -65,14 +65,14 @@ export default function RegisterFormComponent() {
           {...register("name")}
           placeholder="Jane Doe"
           className={`mt-1.5 w-full rounded-xl border px-4 py-3 text-sm outline-none ${
-            errors.fullName
+            errors.name
               ? "border-red-500 focus:ring-2 focus:ring-red-500"
               : "border-gray-200 focus:ring-2 focus:ring-lime-400"
           }`}
         />
-        {errors.fullName && (
+        {errors.name && (
           <p className="mt-1.5 text-xs text-red-600">
-            {errors.fullName.message}
+            {errors.name.message}
           </p>
         )}
       </div>
